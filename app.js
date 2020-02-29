@@ -34,7 +34,9 @@ inquirer.prompt([
     message: "What is your manager's office number?" 
   },
 ]).then(val=> {
-  console.log(val);
+  // console.log(val);
+  const manager = new Manager (val.name, val.id, val.email, val.officeNumber);
+  allEmployeeObjectsArray.push(manager);
   return directToTypeOfMember();
 })
 };
@@ -63,7 +65,8 @@ const engineer = ()=>{
        message: "What is your engineer's GitHub username?" 
      },
   ]).then(val=>{
-    console.log(val);
+    const engineer = new Engineer (val.name, val.id, val.email, val.github);
+    allEmployeeObjectsArray.push(engineer)
     return directToTypeOfMember();
   })
 };
@@ -92,7 +95,8 @@ const intern = ()=>{
        message: "What is your intern's school?" 
      },
   ]).then(val=>{
-    console.log(val);
+    const intern = new Intern (val.name, val.id, val.email, val.school);
+    allEmployeeObjectsArray.push(intern)
     return directToTypeOfMember();
   })
 };
@@ -120,10 +124,16 @@ const directToTypeOfMember = ()=>{
     }else if (val.memberType === "intern"){
       intern();
     }else{
-      return
+      fs.writeFile(outputPath, render(allEmployeeObjectsArray), function(err){
+        if (err) {
+          return console.log(err);
+        }
+      })
     }
   })
 }
+
+const allEmployeeObjectsArray = [];
 
 directToTypeOfMember();
   
@@ -146,7 +156,7 @@ directToTypeOfMember();
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work!```
 
-const init = () => {};
+
 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
@@ -160,4 +170,4 @@ const init = () => {};
 // does not. The fs npm package may have methods to check if a directory exists, and they
 // may also have methods to create a directory that doesn't...
 
-init();
+
