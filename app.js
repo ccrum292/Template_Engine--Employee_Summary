@@ -10,6 +10,129 @@ const outputPath = path.join(OUTPUT_DIR, 'team.html');
 
 const render = require('./lib/htmlRenderer');
 
+const managerPrompt = ()=> {
+
+inquirer.prompt([
+  {
+   type: "input",
+   name: "name",
+   message: "What is your manager's name?" 
+  },
+  {
+    type: "input",
+    name: "id",
+    message: "What is your manager's id?" 
+  },
+  {
+    type: "input",
+    name: "email",
+    message: "What is your manager's email?" 
+  },
+  {
+    type: "input",
+    name: "officeNumber",
+    message: "What is your manager's office number?" 
+  },
+]).then(val=> {
+  console.log(val);
+  return directToTypeOfMember();
+})
+};
+
+const engineer = ()=>{
+
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "What is your engineer's name?" 
+     },
+     {
+       type: "input",
+       name: "id",
+       message: "What is your engineer's id?" 
+     },
+     {
+       type: "input",
+       name: "email",
+       message: "What is your engineer's email?" 
+     },
+     {
+       type: "input",
+       name: "github",
+       message: "What is your engineer's GitHub username?" 
+     },
+  ]).then(val=>{
+    console.log(val);
+    return directToTypeOfMember();
+  })
+};
+
+const intern = ()=>{
+
+  inquirer.prompt([
+    {
+      type: "input",
+      name: "name",
+      message: "What is your intern's name?" 
+     },
+     {
+       type: "input",
+       name: "id",
+       message: "What is your intern's id?" 
+     },
+     {
+       type: "input",
+       name: "email",
+       message: "What is your intern's email?" 
+     },
+     {
+       type: "input",
+       name: "school",
+       message: "What is your intern's school?" 
+     },
+  ]).then(val=>{
+    console.log(val);
+    return directToTypeOfMember();
+  })
+};
+
+const directToTypeOfMember = ()=>{
+  console.log("Please build your team.");
+  inquirer.prompt([
+    {
+      type: "list",
+      name: "memberType",
+      message: "Which type of team member would you like to add?",
+      choices: [
+        "manager",
+        "engineer",
+        "intern",
+        "I don't want to add any more team members.",
+      ]
+    }
+  ]).then(val=>{
+    
+    if(val.memberType === "manager"){
+      managerPrompt();
+    }else if (val.memberType === "engineer"){
+      engineer();
+    }else if (val.memberType === "intern"){
+      intern();
+    }else{
+      return
+    }
+  })
+}
+
+directToTypeOfMember();
+  
+
+
+
+
+
+
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
