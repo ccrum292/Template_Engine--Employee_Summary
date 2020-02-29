@@ -34,7 +34,6 @@ inquirer.prompt([
     message: "What is your manager's office number?" 
   },
 ]).then(val=> {
-  // console.log(val);
   const manager = new Manager (val.name, val.id, val.email, val.officeNumber);
   allEmployeeObjectsArray.push(manager);
   return directToTypeOfMember();
@@ -112,7 +111,7 @@ const directToTypeOfMember = ()=>{
         "manager",
         "engineer",
         "intern",
-        "I don't want to add any more team members.",
+        "I don't want to add any more team members, please render team.html.",
       ]
     }
   ]).then(val=>{
